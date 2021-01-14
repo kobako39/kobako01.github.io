@@ -38,7 +38,15 @@
         }
       
       scene.add(new THREE.DirectionalLight(#ffffff, 2));
-      scene.add(new THREE.AmbientLight(#fffafa));                                    
+      scene.add(new THREE.AmbientLight(#fffafa));   
+
+      tick();
+
+      function tick(){
+         group.rotateY(0.01);
+         renderer.render(scene, camera);
+         requestAnimationFrame(tick);
+      }                                 
       
       
   </script>
