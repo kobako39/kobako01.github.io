@@ -1,16 +1,19 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
-	</head>
-	<body>
+  <head>
+    <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script>
+      // ページの読み込みを待つ
+      window.addEventListener('load', init);
 
+      function init() {
+        // サイズを指定
+        const width = 960;
+        const height = 540;
+
+        // レンダラーを作成
         const renderer = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#myCanvas'),
           antialias: true,
           devicePixelRatio: window.devicePixelRatio
         });
@@ -20,7 +23,7 @@
         const scene = new THREE.Scene();
 
         // フォグを設定
-        scene.fog = new THREE.Fog(0x000000, 50, 2000);
+        scene.fog = new THREE.Fog(#f08080, 50, 2000);
 
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
@@ -45,8 +48,8 @@
         }
 
         // 光源
-        scene.add(new THREE.DirectionalLight(0xff0000, 2)); // 平行光源
-        scene.add(new THREE.AmbientLight(0x00ffff)); // 環境光源
+        scene.add(new THREE.DirectionalLight(#ffffff, 2)); // 平行光源
+        scene.add(new THREE.AmbientLight(#ffffff)); // 環境光源
 
         // 毎フレーム時に実行されるループイベントです
         tick();
@@ -59,5 +62,8 @@
         }
       }
     </script>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
   </body>
 </html>
