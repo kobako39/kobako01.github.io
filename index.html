@@ -13,8 +13,10 @@
 
       const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-      const renderer = new THREE.WebGLRenderer();
- 
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        devicePixelRatio: window.devicePixelRatio
+      });
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
         
@@ -28,8 +30,8 @@
     
       const group = new THREE.Group();
       scene.add(group);
-      const.geometry = new THREE.BoxBufferGeometry(50, 50, 50);
-      const.material = new THREE.MeshStandardMaterial();
+      const geometry = new THREE.BoxBufferGeometry(50, 50, 50);
+      const material = new THREE.MeshStandardMaterial();
       
       for (let i = 0; i < 1000; i++) {
         const mesh = new THREE.Mesh(geometry, material);
