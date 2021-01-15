@@ -1,14 +1,15 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-		</style>
-	</head>
-	<body>
+  <head>
+    <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script>
+      // ページの読み込みを待つ
+      window.addEventListener('load', init);
+
+      function init() {
+        // サイズを指定
+        const width = 960;
+        const height = 540;
 
         // レンダラーを作成
         const renderer = new THREE.WebGLRenderer({
@@ -59,6 +60,9 @@
           requestAnimationFrame(tick);
         }
       }
-    </script>
+      </script>
+    </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
   </body>
 </html>
