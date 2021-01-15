@@ -8,14 +8,14 @@
 
       function init() {
         // サイズを指定
-        const width = 960;
-        const height = 540;
+        const width = 970;
+        const height = 550;
 
         // レンダラーを作成
-        const renderer = new THREE.WebGLRenderer({
-          antialias: true,
-          devicePixelRatio: window.devicePixelRatio
+       const renderer = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#myCanvas')
         });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
 
         // シーンを作成
