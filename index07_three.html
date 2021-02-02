@@ -66,11 +66,11 @@
 				background.receiveShadow = true;
 				background.position.set( 0, 0, - 1 );
 				scene.add( background );
-
-				const geometryCylinder = new THREE.CylinderGeometry( 0, 0.5, 1, 32 );
-				const materialCylinder = new THREE.MeshPhongMaterial( { color: 0xffb6c1 } );
-
-				mesh = new THREE.Mesh( geometryCylinder, materialCylinder );
+				
+				const CubeGeometry = new THREE.CubeGeometry( 200, 200, 200, 5, 5, 5 );
+				const materialCube = new THREE.MeshPhongMaterial( { color: 0xffb6c1 } );
+				
+				mesh = new THREE.Mesh( geometryCube, materialCube);
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
 				scene.add( mesh );
