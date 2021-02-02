@@ -59,8 +59,8 @@
 				light.shadow.camera.zoom = 4; // tighter shadow map
 				scene.add( light );
 
-				const geometryBackground = new THREE.PlaneGeometry( 200, 200 );
-				const materialBackground = new THREE.MeshPhongMaterial( { color: 0x87cefa } );
+				const geometryBackground = new THREE.PlaneGeometry( 100, 100 );
+				const materialBackground = new THREE.MeshPhongMaterial( { color: 0xffdab9  } );
 
 				const background = new THREE.Mesh( geometryBackground, materialBackground );
 				background.receiveShadow = true;
