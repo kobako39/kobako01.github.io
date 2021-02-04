@@ -44,7 +44,7 @@
 
 			import Stats from './stats.module.js';
 
-			const SEPARATION = 200, AMOUNTX = 100, AMOUNTY = 100;
+			const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
 
 			let container, stats;
 			let camera, scene, renderer;
@@ -64,7 +64,7 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 1000;
 
 				scene = new THREE.Scene();
