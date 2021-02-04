@@ -64,7 +64,7 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 1000;
 
 				scene = new THREE.Scene();
@@ -200,7 +200,7 @@
 
 				renderer.render( scene, camera );
 
-				count += 0.1;
+				count += 0.3;
 
 			}
 
