@@ -4,7 +4,7 @@
 		<title>animation - groups</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
+		<link type="text/css" rel="stylesheet" href="main02.css">
 	</head>
 	<body>
 
@@ -42,9 +42,9 @@
 
 				//
 
-				for ( let i = 0; i < 12; i ++ ) {
+				for ( let i = 0; i < 30; i ++ ) {
 
-					for ( let j = 0; j < 12; j ++ ) {
+					for ( let j = 0; j < 30; j ++ ) {
 
 						const mesh = new THREE.Mesh( geometry, material );
 
@@ -66,7 +66,7 @@
 				const qFinal = new THREE.Quaternion().setFromAxisAngle( xAxis, Math.PI );
 				const quaternionKF = new THREE.QuaternionKeyframeTrack( '.quaternion', [ 0, 1, 2 ], [ qInitial.x, qInitial.y, qInitial.z, qInitial.w, qFinal.x, qFinal.y, qFinal.z, qFinal.w, qInitial.x, qInitial.y, qInitial.z, qInitial.w ] );
 
-				const colorKF = new THREE.ColorKeyframeTrack( '.material.color', [ 0, 1, 2 ], [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ], THREE.InterpolateDiscrete );
+				const colorKF = new THREE.ColorKeyframeTrack( '.material.color', [ 1, 1, 2 ], [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ], THREE.InterpolateDiscrete );
 				const opacityKF = new THREE.NumberKeyframeTrack( '.material.opacity', [ 0, 1, 2 ], [ 1, 0, 1 ] );
 
 				// create clip
