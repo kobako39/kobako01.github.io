@@ -67,10 +67,10 @@
 				background.position.set( 0, 0, - 1 );
 				scene.add( background );
 				
-				const geometryTorus = new THREE.TorusGeometry( 10, 3, 16, 100 );
-				const materialTorus = new THREE.MeshPhongMaterial( { color: 0xffb6c1 } );
+				const geometrySphere = new THREE.SphereGeometry( 5, 32, 32 );
+				const materialSphere = new THREE.MeshPhongMaterial( { color: 0xffb6c1 } );
 				
-				mesh = new THREE.Mesh( geometryTorus, materialTorus);
+				mesh = new THREE.Mesh( geometrySphere, materialSphere);
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
 				scene.add( mesh );
