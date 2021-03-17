@@ -3,7 +3,7 @@
 <head>
     <title>fdx practice</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=devide-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link type="text/css" rel="stylesheet" href="three.js-master/editor/css/main.css">
     <style>
         a {
@@ -20,12 +20,12 @@
     <script type="module">
         import * as THREE from 'three.js-master/build/three.module.js';
 
-        import Stas from 'three.js-master/examples/jsm/libs/stats.module.js';
+        import Stats from 'three.js-master/examples/jsm/libs/stats.module.js';
         import { GUI } from 'three.js-master/examples/jsm/libs/dat.gui.module.js';
         import { OrbitControls } from 'three.js-master/examples/jsm/controls/OrbitControls.js';
-        import { GLTFLoder } from 'three.js-master/examples/jsm/loaders/GLTFLoader.js';
+        import { GLTFLaoder } from 'three.js-master/examples/jsm/loaders/GLTFLoader.js';
 
-        let scene, render, camera, stats;
+        let scene, renderer, camera, stats;
         let model, skeleton, mixer, clock;
 
         const crossFadeControls = [];
@@ -33,28 +33,28 @@
         let currentBaseAction = 'idle';
         const allActions = [];
         const baseActions = {
-            idle: { weight: 0},
-            walk: { weight: 0},
-            run: { weight: 0}
+            idle: { weight: 1 },
+            walk: { weight: 0 },
+            run: { weight: 0 }
         };
 
         const additiveActions = {
-            sneak_pose: { weight: 0},
-            sad_pose: { weight: 0},
-            agree: { weight: 0},
-            headShake: { weight: 0}
+            sneak_pose: { weight: 0 },
+            sad_pose: { weight: 0 },
+            agree: { weight: 0 },
+            headShake: { weight: 0 }
         };
 
         let panelSettings, numAnimations;
 
         init();
 
-        finction init() {
+        function init() {
 
             const container = document.getElementById( 'container' );
             clock = new THREE.Clock();
 
-            scene= new THREE.Scene();
+            scene = new THREE.Scene();
             scene.background = new THREE.Color( 0xa0a0a0 );
             scene.fog = new THREE.Fog( 0xa0a0a0, 10, 50 );
 
@@ -74,7 +74,7 @@
             scene.add( dirLight );
 
             // ground
-            const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100 ), new THREE.MeshPhongMaterial( { color: 0x999999, depWrite: false }));
+            const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false }));
             mesh.rotation.x = -Math.PI / 2;
             mesh.receiveShadow = true;
             scene.add( mesh );
@@ -110,13 +110,13 @@
                 if ( baseActions[ name ]){
 
                     const action = mixer.clipAction( clip );
-                    activeAction( action );
+                    activateAction( action );
                     baseActions[ name ].action = action;
                     allActions.push( action );
                 } else if (additiveActions[ name ]){
                     // Make the clip additive and remove the reference frame
                     // クリップを加算し、参照フレームを削除する
-                    THREE.AnimationUtils.makerClipAdditive( clip );
+                    THREE.AnimationUtils.makeClipAdditive( clip );
                     if ( clip.name.endsWith( '_pose' )){
 
                         clip = THREE.AnimationUtils.subclip( clip, clip.name, 2, 3, 30 );
@@ -141,16 +141,16 @@
 
         renderer = new THREE.WebGLRenderer( { antialias: true });
         renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innnerWidth, window.innerHeight );
+        renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.outputEncoding = THREE.sRGBEncoding;
-        renderer.shadowMap.enable = true;
-        container.appendChild( renderer.doElement );
+        renderer.shadowMap.enabled = true;
+        container.appendChild( renderer.domElement );
 
         // camera
         camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 100);
-        camera.position.set( -1, 2, 3);
+        camera.position.set( -1, 2, 3 );
 
-        const controls = new OrbitControls( camera, renderer.domEelment );
+        const controls = new OrbitControls( camera, renderer.domElement );
         controls.enablePan = false;
         controls.enableZoom = false;
         controls.target.set( 0, 1, 0 );
@@ -174,16 +174,16 @@
             'modify time scale': 1.0
         };
 
-        const baseNames = [ 'None,' ...object.keys( baseActions )];
+        const baseNames = [ 'None', ...object.keys( baseActions )];
 
-        for ( let i = 0, l = baseNames.length; i !== l, ++ i ){
+        for ( let i = 0, l = baseNames.length; i !== l; ++ i ){
 
             const name = baseNames[ i ];
             const settings = baseActions[ name ];
             panelSettings[ name ] = function () {
 
                 const currentSettings = baseActions[ currentBaseAction ];
-                const currentAction = currentSettings ? currenrSettings.action : null;
+                const currentAction = currentSettings ? currentSettings.action : null;
                 const action = settings ? settings.action : null;
 
                 prepareCrossFade( currentAction, action, 0.35 );
@@ -211,9 +211,9 @@
         folder2.open();
         folder3.open();
 
-        crossFadeControls.forEach( function ( contorol ){
+        crossFadeControls.forEach( function ( control ){
 
-            control.classList1 = control.doElement.parentElement.parentElement.classList;
+            control.classList1 = control.domElement.parentElement.parentElement.classList;
             control.classList2 = control.domElement.previousElementSibling.classList;
 
             control.setInactive = function () {
@@ -228,7 +228,7 @@
 
             const settings = baseActions[ control.property ];
 
-            if ( ! setting || ! settings.weight ) {
+            if ( ! settings || ! settings.weight ) {
 
                 control.setInactive();
             }
@@ -245,7 +245,7 @@
 
     }
 
-    fnction modifyTimeScale( speed ) {
+    function modifyTimeScale( speed ) {
 
         mixer.timeScale = speed;
 
@@ -259,7 +259,7 @@
 // 現在のアクションが「idle」の場合、クロスフェードをすぐに実行する。
 // そうでなければ、現在のアクションのループが終了するまで待つ。
 　　
-    if ( currentBaseAction == 'idle' || ! startAction || ! endAction ){
+    if ( currentBaseAction === 'idle' || ! startAction || ! endAction ){
 
         executeCrossFade( startAction, endAction, duration );
         // durationは存続
@@ -281,27 +281,27 @@
 
     crossFadeControls.forEach( function ( control ){
 
-        const name = control.propety;
+        const name = control.property;
 
-        if ( name == currentBaseAction ){
+        if ( name === currentBaseAction ){
 
             control.setActive();
         } else {
 
-            control.setActive();
+            control.setInactive();
         }
     });
     }
 
     function synchronizeCrossFade( startAction, endAction, duration ) {
 
-        mixer.addEventListener(' loop', onLoopFinished );
+        mixer.addEventListener('loop', onLoopFinished );
 
         function onLoopFinished( event ){
 
-            if ( event.action == startAction ){
+            if ( event.action === startAction ){
 
-                mixer.removeEventListener( ' loop', onLoopFinished );
+                mixer.removeEventListener( 'loop', onLoopFinished );
 
                 executeCrossFade( startAction, endAction, duration );
             }
@@ -331,7 +331,7 @@ if ( endAction ){
         endAction.fedeIn( duration );
         }
 
-    }else{
+    } else {
         // Fade out
 
         startAction.fadeOut( duration );
@@ -344,15 +344,15 @@ if ( endAction ){
 // 開始アクションの timeScale を ((開始アニメーションの継続時間) / (終了アニメーションの継続時間)) に設定します。
 function setWeight( action, weight ) {
 
-    action.enable = true;
-    action.setEffecttiveTimeScale( 1 );
+    action.enabled = true;
+    action.setEffectiveTimeScale( 1 );
     action.setEffectiveWeight( weight );
 }
 
 function onWindowResize() {
 
     camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectMatrix();
+    camera.updateProjectionMatrix();
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
@@ -368,12 +368,12 @@ function animate(){
         const action = allActions[ i ];
         const clip = action.getClip();
         const settings = baseActions[ clip.name ] || additiveActions[ clip.name ];
-        settings.weight = action.getEffectWeight();
+        settings.weight = action.getEffectiveWeight();
      }
 // Get the time elapsed since the last frame, used for mixer update
 // 最後のフレームからの経過時間を取得（ミキサーの更新に使用
 
-const mixerUpdateDelta = clocj.getDelta();
+const mixerUpdateDelta = clock.getDelta();
 
 // Update the animation mixer, the stats panel, and render this frame
 // アニメーションミキサーと統計パネルを更新し、このフレームをレンダリングします。
